@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            // TODO: Add code to check answers to questions
+            document.addEventListener('DOMContentLoaded', function(){
+                let corbut = document.querySelector("#correct");
+                let incorbut = document.querySelectorAll(".incorrect");
+                let message = document.querySelector("#message");
+
+                corbut.addEventListener('click', function(){
+                    corbut.style.backgroundColor="green";
+                    message.innerHTML="Correct";
+                })
+                for (let i = 0; i < incorbut.length; i++)
+                {
+                    incorbut[i].addEventListener('click', function(){
+                        incorbut[i].style.backgroundColor="red";
+                        message.innerHTML="Incorrect";
+                    })
+                }
+                document.querySelector("#txtsubmit").addEventListener('click', function(){
+                    let answ = document.querySelector("input");
+                    let txtmsg = document.querySelector("#txtmsg");
+                    if (answ.value == "Panthera"){
+                        answ.style.color="green"
+                        txtmsg.innerHTML="Correct";
+                    }
+                    if (answ.value == "panthera"){
+                        answ.style.color="green"
+                        txtmsg.innerHTML="Correct";
+                    }
+                    else{
+                        answ.style.color="red"
+                        txtmsg.innerHTML="Incorrect";
+                    }
+                })
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <!-- TODO: Add multiple choice question here -->
+                <h3>Which of these is NOT a real genus name?</h3>
+                <button id="correct">Quagga</button>
+                <button class="incorrect">Titanus</button>
+                <button class="incorrect">Dracula</button>
+                <button class="incorrect">Bulbasaurus</button>
+                <p id="message"></p>
+            </div>
+
+            <div class="section">
+                <h2 class="shortt">Part 2: Free Response</h2>
+                <hr class="shortt">
+                <!-- TODO: Add free response question here -->
+                <h3>What is the genus for lions, tigers, and jaguars?</h3>
+                <input id="field" type="text">
+                <button id="txtsubmit">Submit</button>
+                <p id="txtmsg"></p>
+            </div>
+        </div>
+    </body>
+</html>
