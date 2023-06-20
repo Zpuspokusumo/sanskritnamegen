@@ -11,6 +11,8 @@ import (
 func main() {
 	server := gin.Default()
 
+	server.Use(gin.Logger())
+
 	server.GET("/test", func(ctx *gin.Context) {
 		handom := rand.NewSource(time.Now().UnixNano())
 		name := services.Sktnamegen(handom)

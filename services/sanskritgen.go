@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 func Sktnamegen(handom rand.Source) string {
@@ -15,7 +16,8 @@ func Sktnamegen(handom rand.Source) string {
 	FaceA := []string{"Simha", "Nara", "Agni", "Mana", "Aga", "Megha", "Rudhira", "Yuddha"}
 	BottomA := []string{"jit", "rupa", "mukha", "pani", "mushti", "pati", "akshi", "jata"}
 	var name string
-	//Verbsp := []string{"jata", "pata", "datta", "gata", "iccha"}
+	Nums := []string{"Eka", "Dvi", "Tri", "Catur", "Panca"}
+	Verbsp := []string{"jata", "pata", "datta", "gata", "iccha"}
 
 	/*scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
@@ -33,11 +35,16 @@ func Sktnamegen(handom rand.Source) string {
 	// handom := rand.NewSource(time.Now().UnixNano())
 	hand := rand.New(handom)
 
-	init := hand.Intn(2)
+	init := hand.Intn(3)
 	if init == 1 {
 		m := hand.Intn(4)
 		name = fmt.Sprintf("%s%s", name, prefix[m])
 		//fmt.Println(m)
+	}else if init == 2 {
+		m := hand.Intn(10)
+		name = fmt.Sprintf("%s%s", name, Nums[m])
+		m = hand.Intn(8)
+		name = fmt.Sprintf("%s%s", name, Verbsp[m])
 	}
 
 	f := hand.Intn(len(FaceA))
