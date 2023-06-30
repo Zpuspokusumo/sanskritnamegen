@@ -3,8 +3,53 @@ package services
 import (
 	"fmt"
 	"math/rand"
-	"time"
 )
+
+func sandhify(a string, b string) string {
+	isA := false
+	if a == "" {
+		return b
+	}
+	if string(a[len(a)-1]) == "a" {
+		isA = true
+	}
+	switch []rune(b)[0] {
+	case 97, 257:
+		if isA {
+			//truncate string to -1 of length
+			a = a[:len(a)-1]
+		}
+		//replace first element of string
+		bfirst := []rune(b)
+		//to long a
+		bfirst[0] = rune(257)
+		b = string(bfirst)
+	case 105, 299:
+		if isA {
+			//truncate string to -1 of length
+			a = a[:len(a)-1]
+		}
+		//replace first element of string
+		bfirst := []rune(b)
+		//to e
+		bfirst[0] = rune(101)
+		b = string(bfirst)
+	case 117, 363:
+		if isA {
+			//truncate string to -1 of length
+			a = a[:len(a)-1]
+		}
+		//replace first element of string
+		bfirst := []rune(b)
+		//to e
+		bfirst[0] = rune(101)
+		b = string(bfirst)
+	default:
+	}
+
+	c := fmt.Sprintf("%s%s", a, b)
+	return c
+}
 
 func Sktnamegen(handom rand.Source) string {
 	prefix := []string{"prajna", "maha", "su", "dus"} //a A
@@ -13,11 +58,14 @@ func Sktnamegen(handom rand.Source) string {
 	coolnamesback := []string{"mukham", "pani", "manah", "rupa", "murti", "smrti", "isha", "graha", "dvaja"}
 	SuObjA := []string{"prajna", "maha", "su", "dus"}
 	DusObjA := []string{"prajna", "maha", "su", "dus"} */
-	FaceA := []string{"Simha", "Nara", "Agni", "Mana", "Aga", "Megha", "Rudhira", "Yuddha"}
-	BottomA := []string{"jit", "rupa", "mukha", "pani", "mushti", "pati", "akshi", "jata"}
+	FaceA := []string{"simha", "nara", "agni", "mana", "aga", "megha", "rudhira", "yuddha"}
+	// len 10
+	BottomA := []string{"jīt", "rūpa", "mukha", "pāṇi", "muṣṭi", "pati", "akṣi", "jata", "cipta", "bhara"}
 	var name string
-	Nums := []string{"Eka", "Dvi", "Tri", "Catur", "Panca"}
-	Verbsp := []string{"jata", "pata", "datta", "gata", "iccha"}
+	//length 10
+	Nums := []string{"eka", "dvi", "tri", "catur", "pañca", "ṣaṭ", "sapta", "aṣṭa", "nava", "daśa", "sarva"}
+	//length 5
+	Verbsp := []string{"jāta", "pata", "datta", "gata", "iccha"}
 
 	/*scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
@@ -36,31 +84,35 @@ func Sktnamegen(handom rand.Source) string {
 	hand := rand.New(handom)
 
 	init := hand.Intn(3)
+	// 1 uses prefix, 2 uses num-verbed, 0 skips
 	if init == 1 {
 		m := hand.Intn(4)
-		name = fmt.Sprintf("%s%s", name, prefix[m])
+		name = sandhify(name, prefix[m])
 		//fmt.Println(m)
-	}else if init == 2 {
-		m := hand.Intn(10)
-		name = fmt.Sprintf("%s%s", name, Nums[m])
+	} else if init == 2 {
+		m := hand.Intn(11)
+
+		name = sandhify(name, Nums[m])
 		m = hand.Intn(8)
-		name = fmt.Sprintf("%s%s", name, Verbsp[m])
+		name = sandhify(name, Verbsp[m])
 	}
 
 	f := hand.Intn(len(FaceA))
 	fnm := FaceA[f]
 	b := hand.Intn(len(BottomA))
 	bnm := BottomA[b]
-	name = fmt.Sprintf("%s%s%s", name, fnm, bnm)
+	// if string([]rune(fnm)[len(fnm)-1]) == a
+	temp := sandhify(fnm, bnm)
+	name = sandhify(name, temp)
 	//fmt.Println(f)
 	//fmt.Println(b)
 
 	init = hand.Intn(2)
 	if init == 1 {
 		m := hand.Intn(2)
-		//if name[len(name)-1] ==
+		//if string([]rune(fnm)[len(fnm)-1]) == a
 		//fmt.Printf("length %s %s\n", string([]rune(name)[len(name)-1]), name)
-		name = fmt.Sprintf("%s%s", name, suffix[m])
+		name = sandhify(name, suffix[m])
 		//fmt.Println(m)
 	}
 	//fmt.Printf("%s\n", name)
