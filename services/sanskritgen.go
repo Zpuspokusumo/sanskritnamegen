@@ -41,7 +41,7 @@ func sandhify(a string, b string) string {
 		}
 		//replace first element of string
 		bfirst := []rune(b)
-		//to e
+		//to o
 		bfirst[0] = rune(101)
 		b = string(bfirst)
 	default:
@@ -63,9 +63,9 @@ func Sktnamegen(handom rand.Source) string {
 	BottomA := []string{"jīt", "rūpa", "mukha", "pāṇi", "muṣṭi", "pati", "akṣi", "jata", "cipta", "bhara"}
 	var name string
 	//length 10
-	Nums := []string{"eka", "dvi", "tri", "catur", "pañca", "ṣaṭ", "sapta", "aṣṭa", "nava", "daśa", "sarva"}
+	Nums := []string{"śūnya", "eka", "dvi", "tri", "catur", "pañca", "ṣaṭ", "sapta", "aṣṭa", "nava", "daśa", "sarva"}
 	//length 5
-	Verbsp := []string{"jāta", "pata", "datta", "gata", "iccha"}
+	Verbsp := []string{"manta", "jāta", "pata", "datta", "gata", "iccha", "vara", "jaya", "pada", "sarga", "vetta", "varta"}
 
 	/*scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
