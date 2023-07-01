@@ -5,45 +5,93 @@ import (
 	"math/rand"
 )
 
+//make func here for
+
 func sandhify(a string, b string) string {
 	isA := false
+	isI := false
+	isU := false
+	//isR := false
 	if a == "" {
 		return b
 	}
-	if string(a[len(a)-1]) == "a" {
+
+	switch string(a[len(a)-1]) { //last element of A
+	case "a":
 		isA = true
+	case "i":
+		isI = true
+	case "u":
+		isU = true
+		/* case "ṛ":
+		isR = true*/
 	}
+
 	switch []rune(b)[0] {
-	case 97, 257:
-		if isA {
+	case 97, 257: //A
+		if isA { //Long A
 			//truncate string to -1 of length
 			a = a[:len(a)-1]
+			//replace first element of string
+			bfirst := []rune(b)
+			bfirst[0] = rune(257)
+			b = string(bfirst)
+		} else if isI { //YA
+			afirst := []rune(a)
+			afirst[len(a)-1] = rune(121) // last element from i to y
+			a = string(afirst)
+		} else if isU { //VA
+			afirst := []rune(a)
+			afirst[len(a)-1] = rune(118) // last element from u to v
+			a = string(afirst)
 		}
-		//replace first element of string
-		bfirst := []rune(b)
-		//to long a
-		bfirst[0] = rune(257)
-		b = string(bfirst)
-	case 105, 299:
-		if isA {
-			//truncate string to -1 of length
+	case 105, 299: //I
+		if isA { //E
 			a = a[:len(a)-1]
+			bfirst := []rune(b)
+			//to e
+			bfirst[0] = rune(101)
+			b = string(bfirst)
+		} else if isI { // II
+			bfirst := []rune(b)
+			bfirst[0] = rune(299) // lengthen i
+			b = string(bfirst)
+		} else if isU { //VI
+			afirst := []rune(a)
+			afirst[len(a)-1] = rune(118) // last element from u to v
+			a = string(afirst)
 		}
-		//replace first element of string
-		bfirst := []rune(b)
-		//to e
-		bfirst[0] = rune(101)
-		b = string(bfirst)
-	case 117, 363:
-		if isA {
-			//truncate string to -1 of length
+	case 117, 363: //U
+		if isA { //O
 			a = a[:len(a)-1]
+			bfirst := []rune(b)
+			bfirst[0] = rune(101)
+			b = string(bfirst)
+		} else if isI { //YU
+			afirst := []rune(a)
+			afirst[len(a)-1] = rune(121) // last element from i to y
+			a = string(afirst)
+		} else if isU { //UU
+			bfirst := []rune(b)
+			bfirst[0] = rune(363) // lengthen u
+			b = string(bfirst)
 		}
-		//replace first element of string
+	/*case 7771, 7773:
+	if isA { //AR
 		bfirst := []rune(b)
-		//to o
-		bfirst[0] = rune(101)
+		bfirst[0] = rune(82) // change vocalic r to consonant
 		b = string(bfirst)
+	} else if isI { //YR
+		afirst := []rune(a)
+		afirst[len(a)-1] = rune(121) // last element from i to y
+		a = string(afirst)
+	} else if isU { //VR
+		afirst := []rune(a)
+		afirst[len(a)-1] = rune(118) // last element from u to v
+		a = string(afirst)
+	}*/
+
+	//case for a-e ai, a-o au,
 	default:
 	}
 
