@@ -30,10 +30,8 @@ func sandhify(a string, b string) string {
 	switch []rune(b)[0] {
 	case 97, 257: //A
 		if isA { //Long A
-			//truncate string to -1 of length
-			a = a[:len(a)-1]
-			//replace first element of string
-			bfirst := []rune(b)
+			a = a[:len(a)-1]    //truncate string to -1 of length
+			bfirst := []rune(b) //replace first element of string
 			bfirst[0] = rune(257)
 			b = string(bfirst)
 		} else if isI { //YA
@@ -53,6 +51,7 @@ func sandhify(a string, b string) string {
 			bfirst[0] = rune(101)
 			b = string(bfirst)
 		} else if isI { // II
+			a = a[:len(a)-1] //truncate string to -1 of length
 			bfirst := []rune(b)
 			bfirst[0] = rune(299) // lengthen i
 			b = string(bfirst)
@@ -72,6 +71,7 @@ func sandhify(a string, b string) string {
 			afirst[len(a)-1] = rune(121) // last element from i to y
 			a = string(afirst)
 		} else if isU { //UU
+			a = a[:len(a)-1] //truncate string to -1 of length
 			bfirst := []rune(b)
 			bfirst[0] = rune(363) // lengthen u
 			b = string(bfirst)
@@ -92,7 +92,7 @@ func sandhify(a string, b string) string {
 	}*/
 
 	//case for a-e ai, a-o au,
-	default:
+	default: //do nothing, maybe add consonant to consonant sandhi fix next
 	}
 
 	c := fmt.Sprintf("%s%s", a, b)
