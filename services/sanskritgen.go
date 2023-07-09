@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 //make func here for
@@ -222,4 +223,14 @@ func Sktnamegen(handom rand.Source) string {
 	name =
 
 		fmt.Printf("%s", name)*/
+}
+
+func Sktnamegen10() []string {
+	arr := []string{}
+	for i := 0; i < 10; i++ { // check this
+		handom := rand.NewSource(time.Now().UnixNano() + int64(i))
+		name := Sktnamegen(handom)
+		arr = append(arr, name)
+	}
+	return arr
 }
