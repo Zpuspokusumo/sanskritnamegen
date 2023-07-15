@@ -1,46 +1,114 @@
 package main
 
 import (
-	"example/testapi1/services"
-	"fmt"
+	"example/sanskritgen/services"
+	"image/color"
 	"math/rand"
 	"time"
 
-	"github.com/gin-gonic/gin"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/widget"
 )
 
+/*type mytheme struct{}
+
+func (m myTheme) Color(name fyne.ThemeColorName, variant fyne.ThemeVariant) color.Color {
+	if name == theme.ColorNameBackground {
+		if variant == theme.VariantLight {
+			return color.White
+		}
+		return color.Black
+	}
+
+	return theme.DefaultTheme().Color(name, variant)
+}*/
+
+//if you are looking for the API code, go to servermain.go
+//this project went from an API to a GUI App
+
+// go get fyne.io/fyne/v2@latest
 func main() {
-	server := gin.Default()
+	a := app.New()
+	win := a.NewWindow("Sanskrit Name Generator")
+	syz := fyne.NewSize(1000, 600)
+	win.Resize(syz)
 
-	server.Use(gin.Logger())
+	title := canvas.NewText("Sanskrit Name Generator", color.Black)
+	title.TextStyle = fyne.TextStyle{
+		Bold: true,
+	}
+	title.Alignment = fyne.TextAlignCenter
+	title.TextSize = 24
 
-	server.GET("/test", func(ctx *gin.Context) {
+	attri := canvas.NewText("By Zpuspokusumo", color.Black)
+	attri.TextStyle = fyne.TextStyle{
+		Bold: true,
+	}
+	attri.Alignment = fyne.TextAlignCenter
+	attri.TextSize = 20
+
+	//a.Settings().SetTheme(&myTheme{})
+	//var _ fyne.Theme = (*mytheme)(nil)
+
+	names := services.Sktnamegen10()
+	handom := rand.NewSource(time.Now().UnixNano())
+	name := services.Sktnamegen(handom)
+
+	namebox1 := widget.NewLabel(name)
+	namebox1.Wrapping = fyne.TextWrapWord
+	namebox1.Alignment = fyne.TextAlignCenter
+
+	//list widget for 10 names
+	list10 := widget.NewList(
+		func() int {
+			return len(names)
+		},
+		func() fyne.CanvasObject {
+			return widget.NewLabel("Names?")
+		},
+		func(i widget.ListItemID, o fyne.CanvasObject) {
+			o.(*widget.Label).SetText(names[i])
+			o.(*widget.Label).TextStyle = fyne.TextStyle{Bold: true}
+		})
+
+	button1 := widget.NewButton("Generate 1 name", func() {
 		handom := rand.NewSource(time.Now().UnixNano())
 		name := services.Sktnamegen(handom)
-		//time := time.Now().UnixNano()
-		ctx.JSON(200, gin.H{
-			"message": name,
+		namebox1.SetText(name)
+		namebox1.Refresh()
+	})
+	//updates list10
+	button10 := widget.NewButton("Generate 10 names",
+		func() {
+			names = services.Sktnamegen10()
+			list10.Refresh()
 		})
-	})
 
-	server.GET("/test10", func(ctx *gin.Context) {
-		// how to put an array of strings into a json
-		names := services.Sktnamegen10()
-		namemap := make(map[string]string)
+	hBox := container.New(layout.NewHBoxLayout(), layout.NewSpacer(), button1, layout.NewSpacer(), button10, layout.NewSpacer())
+	vBox := container.New(layout.NewVBoxLayout(), title, attri, hBox)
+	nBox := container.New(layout.NewVBoxLayout(), vBox, namebox1, layout.NewSpacer())
+	lBox := container.New(layout.NewMaxLayout(), list10)
 
-		//time := time.Now().UnixNano()
-		for i := 0; i < 10; i++ {
-			jkey := fmt.Sprintf("Name no 0%d", i+1)
-			if i == 9 {
-				jkey = fmt.Sprintf("Name no %d", i+1)
-			}
-			sname := namemap[jkey]
-			if sname == "" {
-				sname = names[i]
-			}
-			namemap[jkey] = sname
-		}
-		ctx.JSON(200, namemap)
-	})
-	server.Run(":8080")
+	win.SetContent(
+		container.NewBorder(
+			nBox,
+			nil,
+			nil,
+			nil,
+			lBox,
+		),
+	)
+
+	/*win.SetContent(
+		container.NewVSplit(
+			vBox,
+			list10,
+		),
+	)*/
+	//vBox.Resize(namebox1.MinSize())
+	win.ShowAndRun()
 }
