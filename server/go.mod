@@ -2,10 +2,12 @@ module github.com/Zpuspokusumo/sanskritnamegen/server
 
 go 1.22
 
-require github.com/gin-gonic/gin v1.9.1
+require (
+	github.com/Zpuspokusumo/sanskritnamegen/services v0.0.0-20250901170753-2fd041bba388
+	github.com/gin-gonic/gin v1.9.1
+)
 
 require (
-	github.com/Zpuspokusumo/sanskritnamegen/services v0.0.0-20250901170753-2fd041bba388 // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
