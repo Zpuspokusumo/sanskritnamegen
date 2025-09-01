@@ -1,3 +1,4 @@
-module example/sanskritgen
+module github.com/Zpuspokusumo/sanskritnamegen/services
 
-go 1.19
+go 1.22
+

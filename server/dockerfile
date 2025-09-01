@@ -14,14 +14,15 @@ RUN go mod download
 COPY . .
 
 # Install required system libraries for GLFW + OpenGL
-RUN apt-get update && apt-get install -y \
-    xorg-dev \
-    libgl1-mesa-dev \
-    pkg-config \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update 
+    # && apt-get install -y \
+    # xorg-dev \
+    # libgl1-mesa-dev \
+    # pkg-config \
+    # && rm -rf /var/lib/apt/lists/*
 
 # Build the Go binary
-RUN go build -o server ./server
+RUN go build -o server .
 
 # ---- Stage 2: Create minimal runtime image ----
 FROM debian:bookworm-slim

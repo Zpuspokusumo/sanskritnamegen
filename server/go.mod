@@ -1,6 +1,7 @@
-module example/sanskritgen
+module github.com/Zpuspokusumo/sanskritnamegen/server
 
-go 1.19
+
+go 1.22
 
 require github.com/gin-gonic/gin v1.9.1
 

@@ -1,8 +1,11 @@
 apibuild:
-docker build -t skt-api .
+docker build -t skt-api ./server
 
 apirun:
 docker run --name skt-api-container -p 8080:8080 skt-api
+
+apicompose:
+docker compose up --build -d
 
 
 # Build all services defined in docker-compose.yml

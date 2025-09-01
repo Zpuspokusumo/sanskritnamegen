@@ -1,6 +1,6 @@
-module example/sanskritgen
+module github.com/Zpuspokusumo/sanskritnamegen/fyne-ui
 
-go 1.19
+go 1.22
 
 require fyne.io/fyne/v2 v2.3.5
 
