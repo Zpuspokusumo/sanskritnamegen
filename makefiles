@@ -1,0 +1,19 @@
+apibuild:
+docker build -t skt-api .
+
+apirun:
+docker run --name skt-api-container -p 8080:8080 skt-api
+
+
+# Build all services defined in docker-compose.yml
+docker compose build  
+
+# Build and start containers (in the foreground)
+docker compose up  
+
+# Build and start in detached (background) mode
+docker compose up -d  
+
+# Stop all containers started by this compose file
+docker compose down
+

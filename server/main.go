@@ -1,17 +1,18 @@
-package server
+package main
 
 import (
-	"example/sanskritgen/services"
 	"fmt"
 	"math/rand"
 	"time"
+
+	"github.com/Zpuspokusumo/sanskritnamegen/services"
 
 	"github.com/gin-gonic/gin"
 )
 
 //this was main, original project was an api, now its a ui with fyne
 
-func runserver() {
+func main() {
 	server := gin.Default()
 
 	server.Use(gin.Logger())

@@ -1,10 +1,11 @@
 package main
 
 import (
-	"example/sanskritgen/services"
 	"image/color"
 	"math/rand"
 	"time"
+
+	"github.com/Zpuspokusumo/sanskritnamegen/services"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
